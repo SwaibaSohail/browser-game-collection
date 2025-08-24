@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Game Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #adb5bd;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-highlight {
+            background: linear-gradient(135deg, rgba(0, 180, 219, 0.1), rgba(0, 131, 176, 0.1));
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid rgba(0, 180, 219, 0.2);
+        }
+
+        .features-highlight h3 {
+            color: #00b4db;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .feature-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .feature-tag {
+            background: linear-gradient(135deg, rgba(0, 180, 219, 0.2), rgba(0, 131, 176, 0.2));
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 180, 219, 0.3);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .game-card {
+            background: linear-gradient(145deg, rgba(33, 37, 41, 0.7), rgba(52, 58, 64, 0.7));
+            border-radius: 16px;
+            padding: 35px 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .game-card.hangman::before { background: linear-gradient(90deg, #ff6b6b, #ee5a52); }
+        .game-card.rang::before { background: linear-gradient(90deg, #00b4db, #0083b0); }
+        .game-card.tic-tac-toe::before { background: linear-gradient(90deg, #4ecdc4, #44a08d); }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .game-card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .game-card.hangman h2 { color: #ff6b6b; }
+        .game-card.rang h2 { color: #00b4db; }
+        .game-card.tic-tac-toe h2 { color: #4ecdc4; }
+
+        .game-description {
+            color: #adb5bd;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .game-features {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .game-features h4 {
+            color: #dee2e6;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .game-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .game-features li {
+            color: #adb5bd;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .game-features li::before {
+            content: '•';
+            color: #00b4db;
+            position: absolute;
+            left: 0;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .game-card.hangman .play-btn { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+        .game-card.tic-tac-toe .play-btn { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 180, 219, 0.4);
+        }
+
+        .game-card.hangman .play-btn:hover { box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4); }
+        .game-card.tic-tac-toe .play-btn:hover { box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4); }
+
+        .footer {
+            margin-top: 50px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Multiplayer Game Suite</h1>
+            <p>A collection of sophisticated web games featuring real-time multiplayer support, leaderboards, and responsive design</p>
+        </div>
+
+        <div class="features-highlight">
+            <h3>⚡ Advanced Features</h3>
+            <div class="feature-tags">
+                <span class="feature-tag">Real-time Multiplayer</span>
+                <span class="feature-tag">Leaderboards</span>
+                <span class="feature-tag">Responsive UI</span>
+                <span class="feature-tag">User Authentication</span>
+                <span class="feature-tag">Live Updates</span>
+            </div>
+        </div>
+
+        <div class="games-grid">
+            <!-- Hangman Card -->
+            <a href="./Hangman/" class="game-card hangman">
+                <span class="game-icon">🧩</span>
+                <h2>Hangman</h2>
+                <p class="game-description">The classic word-guessing game reimagined with modern multiplayer features and competitive leaderboards.</p>
+                
+                <div class="game-features">
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li>Multiplayer support</li>
+                        <li>Global leaderboards</li>
+                        <li>Real-time game updates</li>
+                        <li>User profiles & stats</li>
+                    </ul>
+                </div>
+                
+                <div class="play-btn">Play Hangman</div>
+            </a>
+
+            <!-- Rang Card -->
+            <a href="./Rang/" class="game-card rang">
+                <span class="game-icon">🎴</span>
+                <h2>Rang</h2>
+                <p class="game-description">A strategic 4-player trump card game with full multiplayer support and intuitive gameplay.</p>
+                
+                <div class="game-features">
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li>4-player multiplayer</li>
+                        <li>Real-time card gameplay</li>
+                        <li>Interactive trump system</li>
+                        <li>Responsive card UI</li>
+                    </ul>
+                </div>
+                
+                <div class="play-btn">Play Rang</div>
+            </a>
+
+            <!-- Tic Tac Toe Card -->
+            <a href="./Tic Tac Toe/" class="game-card tic-tac-toe">
+                <span class="game-icon">⭕</span>
+                <h2>Tic Tac Toe</h2>
+                <p class="game-description">The timeless strategy game with smooth gameplay and clean, modern interface design.</p>
+                
+                <div class="game-features">
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li>Two-player gameplay</li>
+                        <li>Win/loss tracking</li>
+                        <li>Clean modern interface</li>
+                        <li>Instant game reset</li>
+                    </ul>
+                </div>
+                
+                <div class="play-btn">Play Tic Tac Toe</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>Built with vanilla JavaScript • Responsive Design • Multiplayer Architecture</p>
+        </div>
+    </div>
+</body>
+</html>
