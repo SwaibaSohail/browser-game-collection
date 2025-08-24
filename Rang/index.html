@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RANG Card Game</title>
+    <link rel="stylesheet" href="style.css">
+        
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RANG Card Game</h1>
+            <p>A strategic trick-taking game for 4 players</p>
+        </header>
+        
+        <div class="game-info">
+            <div class="trump-suit">
+                <span>Trump Suit:</span>
+                <div class="trump-card red">♥</div>
+            </div>
+            <div class="current-turn">Your turn to play</div>
+        </div>
+        
+        <div class="game-table">
+            <div class="player player-1 active">
+                <div class="player-name">You</div>
+                <div class="player-cards" id="player-cards">
+                    <!-- Cards generation -->
+                </div>
+            </div>
+            
+            <div class="player player-2">
+                <div class="player-name">AI Player 2</div>
+                <div class="player-cards">
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                </div>
+            </div>
+            
+            <div class="player player-3">
+                <div class="player-name">AI Player 3</div>
+                <div class="player-cards">
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                </div>
+            </div>
+            
+            <div class="player player-4">
+                <div class="player-name">AI Player 4</div>
+                <div class="player-cards">
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                    <div class="card">?</div>
+                </div>
+            </div>
+            
+            <div class="center-cards" id="center-cards">
+                <!-- Played cards will appear here -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="deal-btn">Deal Cards</button>
+            <button id="play-btn" disabled>Play Card</button>
+            <button id="pass-btn" disabled>Pass</button>
+            <button id="restart-btn">Restart Game</button>
+            <button id="rules-btn">Game Rules</button>
+        </div>
+        
+        <div class="score-board">
+            <h2>Scores</h2>
+            <div class="scores">
+                <div class="score-item">
+                    <div class="score-name">You</div>
+                    <div class="score-value" id="score-1">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-name">AI Player 2</div>
+                    <div class="score-value" id="score-2">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-name">AI Player 3</div>
+                    <div class="score-value" id="score-3">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-name">AI Player 4</div>
+                    <div class="score-value" id="score-4">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-message" id="game-message"></div>
+
+    <!-- Restart Game Confirmation Modal -->
+    <div class="modal" id="restart-modal">
+        <div class="modal-content">
+            <h2>Restart Game</h2>
+            <p>Are you sure you want to restart the game?</p>
+            <p>All scores will be reset.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-confirm" id="restart-confirm">Yes, Restart</button>
+                <button class="modal-btn modal-cancel" id="restart-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="rang.js"></script>
+</body>
+</html>
