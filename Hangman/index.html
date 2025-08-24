@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplayer Hangman</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 Multiplayer Hangman</h1>
+
+    <!-- Username and Category -->
+
+    <div id="setup">
+      <input type="text" id="username" placeholder="Enter username" value="Player1">
+      <br>
+      <span class="category-label">Category:</span>
+      <select id="category">
+        <option value="science">Science</option>
+        <option value="movies">Movies</option>
+        <option value="sports">Sports</option>
+        <option value="history">History</option>
+      </select>
+      <br>
+      <button class="action-btn primary-btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Game Area -->
+    <div id="game" class="hidden">
+      <div class="game-info">
+        <div class="info-box">
+          <h3>Player</h3>
+          <p id="turn">Player1</p>
+        </div>
+        <div class="info-box">
+          <h3>Wrong Guesses</h3>
+          <p id="wrong-count">0/6</p>
+        </div>
+        <div class="info-box">
+          <h3>Category</h3>
+          <p id="current-category">Science</p>
+        </div>
+      </div>
+      
+      <div id="word"></div>
+      <div id="hangman">
+        <div class="hangman-container" id="hangman-drawing"></div>
+      </div>
+      <div id="result" class="hidden"></div>
+      
+      <div class="alphabet-section">
+        <div class="section-header">
+          <i class="fas fa-keyboard"></i>
+          <h3>Select a Letter</h3>
+        </div>
+        <div class="letters-container" id="letters"></div>
+      </div>
+      
+      <div class="button-group">
+        <button class="action-btn tertiary-btn" onclick="restartGame()">
+          <i class="fas fa-redo"></i> Restart Game
+        </button>
+        <button class="action-btn primary-btn" onclick="newGame()">
+          <i class="fas fa-plus-circle"></i> New Game
+        </button>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard">
+      <h3>🏆 Leaderboard</h3>
+      <ul id="scores"></ul>
+    </div>
+  </div>
+    <script src="script.js"></script>
+</body>
+</html>
+</html>
